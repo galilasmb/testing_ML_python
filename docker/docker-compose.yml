@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  inference-api:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: image-inference-api
+    ports:
+      - "8000:8000"
+    environment:
+      - MODEL_PATH=models/resnet50.onnx
+      - LABELS_PATH=models/imagenet_classes.txt
+      - TOP_K=3
+      - NUM_THREADS=4
+    volumes:
+      # Mount models directory if you want to update models without rebuilding
+      - ../models:/app/models:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - inference-network
+
+networks:
+  inference-network:
+    driver: bridge
