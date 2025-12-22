@@ -53,23 +53,22 @@ app = FastAPI(
     This service provides real-time image classification using a pretrained ResNet-50 model.
     
     ### Features:
-    - **Fast Inference**: ~15-50ms per image on CPU
-    - **ImageNet Classes**: Recognizes 1000 different object categories
-    - **Any Image Format**: Supports JPEG, PNG, and other common formats
-    - **Automatic Preprocessing**: Images are automatically resized and normalized
+    - Fast Inference: ~15-50ms per image on CPU
+    - ImageNet Classes Recognizes 1000 different object categories
+    - Any Image Format: Supports JPEG, PNG, and other common formats
+    - Automatic Preprocessing: Images are automatically resized and normalized
     
     ### Model Information:
-    - **Architecture**: ResNet-50
-    - **Framework**: ONNX Runtime
-    - **Dataset**: ImageNet (1000 classes)
-    - **Input Size**: 224x224 pixels (automatic resizing)
+    - Architecture: ResNet-50
+    - Framework: ONNX Runtime
+    - Dataset: ImageNet (1000 classes)
+    - Input Size: 224x224 pixels (automatic resizing)
     
     ### Usage:
     1. Upload an image to the `/infer` endpoint
     2. Receive top-k predictions with confidence scores
     3. Monitor service health via `/health` endpoint
-    
-    For more information, visit the [GitHub repository](https://github.com/yourusername/yourrepo).
+
     """,
     version="1.0.0",
     lifespan=lifespan,
@@ -78,7 +77,7 @@ app = FastAPI(
         "email": "support@example.com",
     },
     license_info={
-        "name": "MIT",
+        "name": "NONE",
     },
     openapi_tags=[
         {
@@ -144,14 +143,14 @@ async def health_check() -> HealthResponse:
     
     The endpoint accepts an image file and returns the top-k predictions with confidence scores.
     
-    **Supported formats**: JPEG, PNG, GIF, BMP, and other common image formats
+    Supported formats: JPEG, PNG, GIF, BMP, and other common image formats
     
-    **Processing**:
+    Processing:
     - Image is automatically resized to 224x224 pixels
     - ImageNet normalization is applied
     - Inference runs on CPU using ONNX Runtime
     
-    **Returns**: Top-k class predictions (default k=3) with confidence scores
+    Returns: Top-k class predictions (default k=3) with confidence scores
     """,
     responses={
         200: {
@@ -302,7 +301,7 @@ async def root() -> ServiceInfo:
     Upload multiple image files and receive predictions for each.
     Failed images will be included in the response with error messages.
     
-    **Performance**: Processing is done sequentially. For better throughput,
+    Performance: Processing is done sequentially. For better throughput,
     consider parallel processing or GPU acceleration.
     """,
     responses={
@@ -432,7 +431,7 @@ async def get_metrics() -> MetricsResponse:
     - Recovering from model corruption
     - Updating model configuration
     
-    **Note**: This will briefly pause inference requests during reload.
+    Note: This will briefly pause inference requests during reload.
     """,
     responses={
         200: {

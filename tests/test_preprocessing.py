@@ -68,11 +68,11 @@ class TestPreprocessing:
         """Test validation of image with invalid dimensions."""
         # PIL doesn't allow 0-sized images, so we mock this scenario
         # by creating an image and checking validation logic
-        image = Image.new('RGB', (1, 1))
+        image = Image.new('RGB', (0, 0))
         is_valid, _ = validate_image(image)
         
-        # Should pass - 1x1 is valid
-        assert is_valid is True
+        # Should pass - 0x0 is invalid
+        assert is_valid is False
         
     def test_preprocess_different_sizes(self):
         """Test preprocessing images of various sizes."""
